@@ -1,0 +1,59 @@
+.pageContainer {
+  font-family: Lato, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.42857143;
+  color: #383838;
+  display: flex;
+  margin: 90px;
+}
+
+h1 {
+  font-weight: 100;
+}
+.productImg {
+  height: 100%;
+}
+
+.pageContainerLeft {
+  width: 800px;
+  margin-right: 25px;
+}
+
+.pageContainerRight {
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 9%);
+  background-color: #fff;
+  padding: 2.5rem;
+}
+
+.producrDescription {
+  margin-top: 20px;
+}
+
+.productPrice {
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: #0a9878;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  padding-top: 140px;
+}
+
+.productCount {
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border-color: #eeeeee;
+  width: 80px;
+  margin-right: 15px;
+}
+
+.warnText {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 120px;
+}

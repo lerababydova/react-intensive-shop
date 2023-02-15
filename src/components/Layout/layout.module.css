@@ -1,0 +1,54 @@
+.header {
+  font-family: Lato, Helvetica, Arial, sans-serif;
+  padding: 15px;
+  position: relative;
+  z-index: 1;
+  transition: padding 200ms;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 10px 0px #cfcfcf;
+}
+
+.container {
+  width: 1490px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navLinks {
+  margin: 0;
+}
+
+.navLinksList {
+  list-style: none;
+  display: flex;
+  column-gap: 10px;
+}
+
+.navLinksItem {
+  padding: 10px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #222222;
+  opacity: 0.7;
+}
+
+.navLinksItem:hover {
+  background-color: #80808033;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.headerRightSide {
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+}
+
+.productCount {
+  color: #777777;
+}

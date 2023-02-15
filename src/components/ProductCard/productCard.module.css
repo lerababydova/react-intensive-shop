@@ -1,0 +1,32 @@
+.cardContainer {
+  max-width: 350px;
+  background-color: white;
+  display: flex;
+
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 0 3px 1px #80808045;
+}
+
+.titleLink {
+  text-decoration: none;
+  font-size: 18px;
+  color: #424242;
+}
+
+.titleLink:hover {
+  text-decoration: underline;
+}
+
+.cardImage {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+}
+
+.cardInfo {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
