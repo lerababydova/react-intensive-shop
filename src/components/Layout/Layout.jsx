@@ -6,10 +6,18 @@ import { AppContext } from "../../modules/context/AppContext";
 
 const Layout = () => {
   const { cart, products, setModal, user, setUser } = useContext(AppContext);
+
   const totalCount = Object.values(cart).reduce((acc, curr) => acc + curr, 0);
+
   const totalPrice = Object.entries(cart).reduce((acc, curr) => {
     const [id, count] = curr;
+
     const product = products.find((product) => product.id === +id);
+
+    if (!product) {
+      return 0;
+    }
+
     return acc + count * product.price;
   }, 0);
 

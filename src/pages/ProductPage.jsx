@@ -1,23 +1,36 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { AppContext } from "../modules/context/AppContext";
 import styles from "./productPage.module.css";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
 
-const ProductPage = ({}) => {
+const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState();
   const [count, setCount] = useState(1);
-  const { setProducts, addToCartById, user } = useContext(AppContext);
+  const { setProducts, addToCartById, user, products } = useContext(AppContext);
+  const navigate = useNavigate();
 
-  const getProduct = async () => {
-    const res = await fetch(`https://api.escuelajs.co/api/v1/products/${id}`);
-    const data = await res.json();
-    setProduct(data);
+  const existingProduct = products.find((product) => +product.id === +id);
 
-    setProducts([data]);
-  };
+  const getProduct = useCallback(async () => {
+    try {
+      const res = await fetch(`https://api.escuelajs.co/api/v1/products/${id}`);
+
+      if (!res.ok) {
+        throw new Error("Ошибка!");
+      }
+
+      const data = await res.json();
+
+      setProduct(data);
+
+      setProducts([data]);
+    } catch {
+      navigate("/404");
+    }
+  }, [id, setProducts]);
 
   const handleChangeProductCount = (event) => {
     const productCount = Number(event.target.value);
@@ -31,8 +44,12 @@ const ProductPage = ({}) => {
   };
 
   useEffect(() => {
-    getProduct();
-  }, []);
+    if (existingProduct) {
+      setProduct(existingProduct);
+    } else {
+      getProduct();
+    }
+  }, [existingProduct, getProduct]);
 
   if (!product) {
     return null;
