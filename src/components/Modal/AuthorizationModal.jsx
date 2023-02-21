@@ -17,13 +17,11 @@ const AuthorizationModal = ({ onCloseModal }) => {
   const navigate = useNavigate();
 
   const onChangeUsername = (event) => {
-    const usernameValue = event.target.value;
-    setUsername(usernameValue);
+    setUsername(event.target.value);
   };
 
   const onChangePassword = (event) => {
-    const passwordValue = event.target.value;
-    setPassword(passwordValue);
+    setPassword(event.target.value);
   };
 
   const handleLogin = () => {
