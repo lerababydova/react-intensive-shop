@@ -1,11 +1,12 @@
 import Button from "../Button/Button";
-import { useContext } from "react";
-import { AppContext } from "../../modules/context/AppContext";
+
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "./productCard.module.css";
+import { selectUser } from "../../modules/user/selectors";
 
-const ProductCard = ({ images, price, title, id, addToCart }) => {
-  const { user } = useContext(AppContext);
+const ProductCard = ({ image, price, title, id, addToCart }) => {
+  const user = useSelector(selectUser);
 
   const onClick = () => {
     addToCart(id);
@@ -13,7 +14,7 @@ const ProductCard = ({ images, price, title, id, addToCart }) => {
 
   return (
     <div className={styles.cardContainer}>
-      <img className={styles.cardImage} src={images[0]} alt="" />
+      <img className={styles.cardImage} src={image} alt="" />
       <div className={styles.cardInfo}>
         <p>
           <Link className={styles.titleLink} to={`/product/${id}`}>

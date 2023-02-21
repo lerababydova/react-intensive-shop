@@ -1,29 +1,48 @@
-import { useContext, useEffect, useState } from "react";
-import Layout from "../components/Layout/Layout";
+import { useCallback, useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard/ProductCard";
-import { AppContext } from "../modules/context/AppContext";
+import { useSelector, useDispatch } from "react-redux";
+import { selectProducts } from "../modules/product/selectors";
 import styles from "./home.module.css";
+import { setProducts } from "../modules/product/actions";
+import { addToCartById } from "../modules/cart/actions";
+import Button from "../components/Button/Button";
+
+const defaultLimit = 4;
+const max_product_count = 20;
 
 const Home = () => {
-  const { setProducts, products, addToCartById } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
+  const [limitCards, setLimitCards] = useState(defaultLimit);
 
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
     const res = await fetch(
-      "https://api.escuelajs.co/api/v1/products?offset=0&limit=28"
+      `https://fakestoreapi.com/products?limit=${limitCards}`
     );
     const data = await res.json();
-    setProducts(data);
-  };
+    dispatch(setProducts(data));
+  }, [dispatch, limitCards]);
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
+
+  const addToCart = (id) => {
+    dispatch(addToCartById(id));
+  };
+
+  const handleLoadProduts = () => {
+    setLimitCards(limitCards + defaultLimit);
+  };
 
   return (
     <div className={styles.productsContainer}>
       {products.map((product) => (
-        <ProductCard {...product} key={product.id} addToCart={addToCartById} />
+        <ProductCard {...product} key={product.id} addToCart={addToCart} />
       ))}
+      {products.length < max_product_count && (
+        <Button name="Load more products" onClick={handleLoadProduts} />
+      )}
     </div>
   );
 };

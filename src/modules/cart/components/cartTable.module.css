@@ -1,0 +1,35 @@
+.table {
+  width: 700px;
+}
+
+.deleteButton {
+  cursor: pointer;
+  color: #fff;
+  border: 1px solid #aeaeae;
+  border-radius: 30px;
+  background: #605f61;
+  font-size: 31px;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 0px;
+  padding: 10px 3px;
+}
+
+.deleteButton:hover {
+  background-color: rgb(255, 0, 0);
+  color: #ffffff;
+}
+
+.deleteButton::before {
+  content: "×";
+}
+
+.totalContainer {
+  display: flex;
+  width: 700px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}

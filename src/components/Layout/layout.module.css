@@ -52,3 +52,18 @@
 .productCount {
   color: #777777;
 }
+
+.cartButton {
+  width: 30px;
+}
+
+.cartButton:hover {
+  filter: invert(55%) sepia(18%) saturate(156%) hue-rotate(110deg)
+    brightness(93%) contrast(89%);
+}
+
+.cartContainer {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+}

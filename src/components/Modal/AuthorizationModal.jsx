@@ -1,15 +1,16 @@
 import Button from "../Button/Button";
 import Input from "../Input/Input";
-import { useContext, useState } from "react";
-import { AppContext } from "../../modules/context/AppContext";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styles from "./modalContainer.module.css";
+import { setUser } from "../../modules/user/actions";
 
 const USER_NAME = "user";
 const PASSWORD = "1234";
 
 const AuthorizationModal = ({ onCloseModal }) => {
-  const { setUser } = useContext(AppContext);
+  const dispatch = useDispatch();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState(false);
@@ -28,7 +29,7 @@ const AuthorizationModal = ({ onCloseModal }) => {
   const handleLogin = () => {
     if (USER_NAME === username && PASSWORD === password) {
       onCloseModal();
-      setUser({ username });
+      dispatch(setUser({ username }));
       navigate("/");
     } else {
       setError(true);

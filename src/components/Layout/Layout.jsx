@@ -1,11 +1,22 @@
 import { Link, Outlet } from "react-router-dom";
 import styles from "./layout.module.css";
 import Button from "../Button/Button";
-import { useContext } from "react";
-import { AppContext } from "../../modules/context/AppContext";
+import { selectCart } from "../../modules/cart/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { selectProducts } from "../../modules/product/selectors";
+import { selectUser } from "../../modules/user/selectors";
+import { setUser } from "../../modules/user/actions";
+import { setModal } from "../../modules/modal/actions";
+import ModalContainer from "../Modal/ModalContainer";
+import AuthorizationModal from "../Modal/AuthorizationModal";
+import { selectModal } from "../../modules/modal/selector";
 
 const Layout = () => {
-  const { cart, products, setModal, user, setUser } = useContext(AppContext);
+  const dispatch = useDispatch();
+  const cart = useSelector(selectCart);
+  const products = useSelector(selectProducts);
+  const user = useSelector(selectUser);
+  const modal = useSelector(selectModal);
 
   const totalCount = Object.values(cart).reduce((acc, curr) => acc + curr, 0);
 
@@ -22,11 +33,11 @@ const Layout = () => {
   }, 0);
 
   const handleOpenModal = () => {
-    setModal({ isOpened: true });
+    dispatch(setModal({ isOpened: true }));
   };
 
   const handleLogout = () => {
-    setUser(null);
+    dispatch(setUser(null));
   };
 
   return (
@@ -51,14 +62,25 @@ const Layout = () => {
           <div className={styles.logo}> Online Shop</div>
           <div className={styles.headerRightSide}>
             {user ? (
-              <Button name="LOGOUT" onClick={handleLogout} />
+              <div className={styles.cartContainer}>
+                <Button name="LOGOUT" onClick={handleLogout} />
+                <Link to="/cart">
+                  <img
+                    className={styles.cartButton}
+                    src="/shoppingCart.svg"
+                    alt="cart"
+                  />
+                </Link>
+              </div>
             ) : (
               <Button name="LOGIN" onClick={handleOpenModal} />
             )}
 
             {user && (
               <div className={styles.cartContainer}>
-                <span className={styles.totalAmout}>${totalPrice}</span>
+                <span className={styles.totalAmout}>
+                  ${totalPrice.toFixed(2)}
+                </span>
                 <span className={styles.productCount}>({totalCount})</span>
               </div>
             )}
@@ -66,6 +88,11 @@ const Layout = () => {
         </div>
       </header>
       <main>
+        {modal.isOpened && (
+          <ModalContainer>
+            <AuthorizationModal />
+          </ModalContainer>
+        )}
         <Outlet />
       </main>
     </>

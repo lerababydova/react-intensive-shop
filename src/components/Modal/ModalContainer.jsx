@@ -1,14 +1,15 @@
 import { createPortal } from "react-dom";
-import React, { useEffect, useContext } from "react";
-import { AppContext } from "../../modules/context/AppContext";
+import React, { useEffect } from "react";
 import styles from "./modalContainer.module.css";
-import Button from "../Button/Button";
+import { useDispatch } from "react-redux";
+import { setModal } from "../../modules/modal/actions";
 
 const modalRoot = document.getElementById("modal-root");
 const modalElement = document.createElement("div");
 
 const ModalContainer = ({ children }) => {
-  const { setModal } = useContext(AppContext);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     modalRoot.appendChild(modalElement);
 
@@ -18,7 +19,7 @@ const ModalContainer = ({ children }) => {
   }, []);
 
   const onCloseModal = () => {
-    setModal({ isOpened: false });
+    dispatch(setModal({ isOpened: false }));
   };
 
   return createPortal(
